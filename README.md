@@ -1,4 +1,4 @@
-muzongyan-quickstart-archetypes
+quickstart-archetypes
 =========================
 
 This repository contains commonly used Maven Archetype Templates.
