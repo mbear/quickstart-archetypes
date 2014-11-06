@@ -16,32 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `user`
+-- Table structure for table `wx_cp_config`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `wx_cp_config`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `token` varchar(255) DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `wx_user_id` varchar(255) DEFAULT NULL,
-  `wx_device_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `idx_wx_user_id` (`wx_user_id`),
-  KEY `idx_token` (`token`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+CREATE TABLE `wx_cp_config` (
+  `corp_id` varchar(255) NOT NULL,
+  `agent_id` varchar(255) NOT NULL,
+  `corp_secret` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `aes_key` varchar(255) NOT NULL,
+  `access_token` varchar(255) DEFAULT NULL,
+  `expires_in` int(11) DEFAULT NULL,
+  `http_proxy_host` varchar(255) DEFAULT NULL,
+  `http_proxy_port` int(11) DEFAULT NULL,
+  `http_proxy_username` varchar(255) DEFAULT NULL,
+  `http_proxy_password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`corp_id`,`agent_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `wx_cp_config`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,NULL,'muzongyan',NULL,NULL),(2,NULL,'mujinxin',NULL,NULL);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `wx_cp_config` WRITE;
+/*!40000 ALTER TABLE `wx_cp_config` DISABLE KEYS */;
+INSERT INTO `wx_cp_config` VALUES ('wx9fcb4407341b3293','1','nzSybDuJPnknkdIdqvSQMavIFbAuNK0_t-09wgBpCraLgniWyzTHzNg7p6Mp_axO','5YRCo','qX3nwFcoDKvXuoWYmoMTsHbBixpYerkF6zPAr7YGwlZ','BSGDH7BviMuy8_RR_BWbprvjvRDIMPemnBCKkb3dBXZjXBCqMxgL05U-SFX-23ce',7200,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `wx_cp_config` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-06 10:48:45
+-- Dump completed on 2014-11-06 10:51:05
