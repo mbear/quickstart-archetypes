@@ -15,9 +15,9 @@ import com.muzongyan.maven.archetypes.dtos.User;
  */
 public interface UserMapper {
 	
-	@Select("select user_id as userId, username as userName from user where user_id=#{userId}")
+	@Select("select user_id as userId, user_name as userName from user where user_id=#{userId}")
 	public User findUserById(Integer userId);
 	
-	@Select("select user_id as userId, username as userName from user")
+	@Select("select user_id as userId, user_name as userName from user")
 	public List<User> findAllUsers();
 }
