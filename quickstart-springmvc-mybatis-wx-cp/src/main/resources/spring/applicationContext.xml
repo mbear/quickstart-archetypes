@@ -61,5 +61,10 @@
     <property name="testOnBorrow" value="true" />
     <property name="validationQuery" value="${validationQuery}" />
   </bean>
+  
+  <!-- 微信企业号服务API -->
+  <bean id="wxCpService" class="me.chanjar.weixin.cp.api.WxCpServiceImpl" >
+    <property name="wxCpConfigStorage" ref="wxCpInDbConfigStorage"></property>
+  </bean>
 
 </beans>

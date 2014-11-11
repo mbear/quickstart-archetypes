@@ -17,7 +17,7 @@ import com.muzongyan.maven.archetypes.wx.mappers.WxCpConfigMapper;
  * @author muzongyan
  *
  */
-@Service
+@Service("wxCpInDbConfigStorage")
 public class WxCpInDbConfigStorage implements WxCpConfigStorage {
 
     // 微信企业号ID

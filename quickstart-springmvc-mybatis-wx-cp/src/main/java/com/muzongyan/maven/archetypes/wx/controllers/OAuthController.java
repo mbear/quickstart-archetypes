@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.cp.api.WxCpService;
-import me.chanjar.weixin.cp.api.WxCpServiceImpl;
 import me.chanjar.weixin.cp.bean.WxCpUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ import com.muzongyan.maven.archetypes.dtos.User;
 import com.muzongyan.maven.archetypes.services.UserService;
 import com.muzongyan.maven.archetypes.utils.Constants;
 import com.muzongyan.maven.archetypes.wx.services.OAuthService;
-import com.muzongyan.maven.archetypes.wx.services.WxCpInDbConfigStorage;
 
 /**
  * @author muzongyan
@@ -41,7 +39,7 @@ public class OAuthController {
     private UserService userService;
 
     @Autowired
-    private WxCpInDbConfigStorage config;
+    private WxCpService wxCpService;
 
     @RequestMapping("/code")
     public String getCode(String code, String state, HttpServletRequest request, HttpServletResponse response) {
@@ -50,7 +48,7 @@ public class OAuthController {
             String referer = URLDecoder.decode(state, "utf-8");
 
             // 从微信获取当前使用者信息
-            User currentUser = oAuthService.getCurrentUserInfo(code, config.getAgentId());
+            User currentUser = oAuthService.getCurrentUserInfo(code);
 
             // 通过微信返回的userid，从cache/db获取用户信息
             User user = userService.findUserByWxUserId(currentUser.getWxUserId());
@@ -65,8 +63,6 @@ public class OAuthController {
                 user.setWxDeviceId(currentUser.getWxDeviceId());
 
                 // 获取微信的用户信息
-                WxCpService wxCpService = new WxCpServiceImpl();
-                wxCpService.setWxCpConfigStorage(config);
                 WxCpUser wxCpUser = wxCpService.userGet(currentUser.getWxUserId());
                 if (wxCpUser != null) {
                     user.setUserName(wxCpUser.getName());
@@ -96,7 +92,7 @@ public class OAuthController {
         } catch (WxErrorException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        
+
         return "redirect:/";
     }
 }

@@ -8,7 +8,6 @@ import java.io.StringReader;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.common.util.json.GsonHelper;
 import me.chanjar.weixin.cp.api.WxCpService;
-import me.chanjar.weixin.cp.api.WxCpServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +25,9 @@ import com.muzongyan.maven.archetypes.dtos.User;
 public class OAuthService {
 
     @Autowired
+    private WxCpService wxCpService;
+
+    @Autowired
     private WxCpInDbConfigStorage config;
 
     /**
@@ -36,12 +38,9 @@ public class OAuthService {
      * @return
      * @throws WxErrorException
      */
-    public User getCurrentUserInfo(String code, String agentid) throws WxErrorException {
-        WxCpService wxCpService = new WxCpServiceImpl();
-        wxCpService.setWxCpConfigStorage(config);
-
+    public User getCurrentUserInfo(String code) throws WxErrorException {
         String url = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
-        String queryParam = "code=" + code + "&agentid=" + agentid;
+        String queryParam = "code=" + code + "&agentid=" + config.getAgentId();
         String responseContent = wxCpService.get(url, queryParam);
 
         JsonElement tmpJsonElement = Streams.parse(new JsonReader(new StringReader(responseContent)));

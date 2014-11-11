@@ -37,5 +37,5 @@ public interface UserMapper {
     public void createUserInfo(@Param("user") User user);
 
     @Update("UPDATE `user` SET token = #{token} WHERE user_id = #{userId}")
-    public void updateToken(String token, int userId);
+    public void updateToken(@Param("token") String token, @Param("userId") int userId);
 }
